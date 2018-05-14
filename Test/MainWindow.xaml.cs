@@ -123,7 +123,7 @@ namespace Test
             }
             catch (Exception fail)
             {
-                MessageBox.Show(fail.Message, "Datei konnte nicht gelesen werden", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(fail.Message, "Datei konnte nicht gelesen werden", MessageBoxButton.OK, MessageBoxImage.Error,);
             }
         }
 
