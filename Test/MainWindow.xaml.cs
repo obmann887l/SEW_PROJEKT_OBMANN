@@ -104,34 +104,41 @@ namespace Test
             }
             catch (Exception loe)
             {
-                MessageBox.Show(loe.Message, "Wählen Sie bitte ein Element aus, das gelöscht werden soll", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Wählen Sie bitte ein Element aus, das gelöscht werden soll oder verwenden Sie die Suchoption ." + loe.Message, "Wählen Sie bitte ein Element aus, das gelöscht werden soll oder verwenden Sie die Suchoption", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void btn_datei_Click(object sender, RoutedEventArgs e)
         {
-            string typ = (((lb_Informationen.ItemsSource.ToString()).Split('[')[1]).Split('.')[1]).Replace("]", String.Empty);
-            string path;
-            if (lb_Informationen.Items.Count > 0)
+            try
             {
-                string alles = String.Empty;
-                if (typ == "Schueler")
+                string typ = (((lb_Informationen.ItemsSource.ToString()).Split('[')[1]).Split('.')[1]).Replace("]", String.Empty);
+                string path;
+                if (lb_Informationen.Items.Count > 0)
                 {
-                    path = "Schulverwaltung_Schueler.txt";
-                    foreach (var item in alle_schueler)
+                    string alles = String.Empty;
+                    if (typ == "Schueler")
                     {
-                        alles += item + Environment.NewLine;
+                        path = "Schulverwaltung_Schueler.txt";
+                        foreach (var item in alle_schueler)
+                        {
+                            alles += item + Environment.NewLine;
+                        }
                     }
-                }
-                else
-                {
-                    path = "Schulverwaltung_Lehrer.txt";
-                    foreach (var item in alle_lehrer)
+                    else
                     {
-                        alles += item + Environment.NewLine;
+                        path = "Schulverwaltung_Lehrer.txt";
+                        foreach (var item in alle_lehrer)
+                        {
+                            alles += item + Environment.NewLine;
+                        }
                     }
+                    File.WriteAllText(path, alles);
                 }
-                File.WriteAllText(path, alles);
+            }
+            catch(Exception datei)
+            {
+                MessageBox.Show("Wählen Sie bitte ein Element aus, das gelöscht werden soll ." + datei.Message, "Wählen Sie bitte ein Element aus, das gelöscht werden soll", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -156,7 +163,7 @@ namespace Test
             }
             catch (Exception fail)
             {
-                MessageBox.Show(fail.Message, "Datei konnte nicht gelesen werden", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Datei konnte nicht gelesen werden ." + fail.Message, "Datei konnte nicht gelesen werden", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void btn_Lesen_Click(object sender, RoutedEventArgs e)
@@ -191,7 +198,7 @@ namespace Test
             }
             catch (Exception fail)
             {
-                MessageBox.Show(fail.Message, "Datei konnte nicht gelesen werden", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Datei konnte nicht gelesen werden ." + fail.Message, "Datei konnte nicht gelesen werden", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -222,16 +229,10 @@ namespace Test
 
                 }
                 
-
-
-
-                //if (select == null)
-                //  throw new Exception();
-
             }
             catch (Exception auswahl)
             {
-                MessageBox.Show(auswahl.Message, "Wählen Sie ein Element zur Bearbeitung aus", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Wählen Sie ein Element zur Bearbeitung aus oder verwende das Suchfeld um ein Element auszuwählen ." + auswahl.Message, "Wählen Sie ein Element zur Bearbeitung aus oder verwende das Suchfeld um ein Element auszuwählen", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -241,7 +242,7 @@ namespace Test
 
             try
             {
-                //alle_schueler.RemoveAt(lb_Informationen.SelectedIndex);
+                
                 string typ = (((lb_Informationen.ItemsSource.ToString()).Split('[')[1]).Split('.')[1]).Replace("]", String.Empty);
                 if (typ == "Schueler")
                 {
@@ -267,9 +268,43 @@ namespace Test
             }
             catch (Exception inhalt)
             {
-                MessageBox.Show(inhalt.Message, "Es wurde kein Element bearbeitet", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Es wurde kein Element bearbeitet ."+ inhalt.Message, "Es wurde kein Element bearbeitet", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+        }
+
+        private void btn_search_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int suchkey = Convert.ToInt32(tb_search.Text);
+                string typ = (((lb_Informationen.ItemsSource.ToString()).Split('[')[1]).Split('.')[1]).Replace("]", String.Empty);
+                if (rb_Schueler.IsChecked == true)
+                {
+                    Dictionary<int, Schueler> schueler_dic = new Dictionary<int, Schueler>();
+                    foreach (var item in alle_schueler)
+                    {
+                        schueler_dic.Add(item.SID, item);
+                    }
+                    lb_Informationen.SelectedItem = schueler_dic[suchkey];
+                    
+                }
+                else if (rb_Schueler.IsChecked == true)
+                {
+                    Dictionary<int, Lehrer> lehrer_dic = new Dictionary<int, Lehrer>();
+                    foreach (var item in alle_lehrer)
+                    {
+                        lehrer_dic.Add(item.LID, item);
+                    }
+                    lb_Informationen.SelectedItem = lehrer_dic[suchkey];
+                    
+                }
+            }
+                catch (Exception search)
+            {
+                MessageBox.Show("Wähle bitte den richtigen Parameter zum Suchen aus ."+ search.Message, "Wähle bitte den richtigen Parameter zum Suchen aus", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
     }
 }

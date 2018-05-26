@@ -17,28 +17,29 @@
         </Grid.Background>
         <Label HorizontalAlignment="Center" Content="Projekt von Lukas Obmann" FontSize="36" FontWeight="Bold" Foreground="White"/>
         <DockPanel>
-            <StackPanel DockPanel.Dock="Left" HorizontalAlignment="Left" Margin="10,447,0,0" Width="120">
-                <RadioButton x:Name="rb_Lehrer" Content="Lehrer öffnen" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True"/>
-                <RadioButton x:Name="rb_Schueler" Content="Schüler öffnen" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+            <StackPanel DockPanel.Dock="Left" HorizontalAlignment="Left" Margin="10,409,0,65" Width="120">
+                <RadioButton x:Name="rb_Lehrer" Content="Lehrer   öffnen/suchen" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True" Margin="0,0,-20,0" Width="144"/>
+                <RadioButton x:Name="rb_Schueler" Content="Schüler öffnen/suchen" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,0,-20,0" Width="144"/>
             </StackPanel>
         </DockPanel>
         <DockPanel>
             <StackPanel DockPanel.Dock="Left" HorizontalAlignment="Left" Margin="10,78,0,0" Width="120">
-                <TextBox x:Name="tb_Vorname" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="Vorname"/>
-                <TextBox x:Name="tb_Nachname" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Nachname" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="tb_ID" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="ID" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="tb_Noten" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Notendurchschnitt" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="tb_kuerzel" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Lehrerkürzel" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="tb_Vorname" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Text="Vorname" Margin="0,0,-20,0"/>
+                <TextBox x:Name="tb_Nachname" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Nachname" VerticalAlignment="Top" Width="140" Margin="0,0,-20,0"/>
+                <TextBox x:Name="tb_ID" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="ID" VerticalAlignment="Top" Width="140" Margin="0,0,-20,0"/>
+                <TextBox x:Name="tb_Noten" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Notendurchschnitt" VerticalAlignment="Top" Width="140" Margin="0,0,-20,0"/>
+                <TextBox x:Name="tb_kuerzel" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Lehrerkürzel" VerticalAlignment="Top" Width="140" Margin="0,0,-20,0"/>
             </StackPanel>
         </DockPanel>
         <DockPanel>
             <StackPanel DockPanel.Dock="Left" HorizontalAlignment="Left" Margin="10,280,0,0" Width="120">
-                <Button x:Name="btn_add" Content="Hinzufügen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Click="btn_add_Click"/>
-                <Button x:Name="btn_rmf" Content="Löschen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Click="btn_rmf_Click"/>
-                <Button x:Name="btn_change" Content="Bearbeiten" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Click="btn_change_Click"/>
-                <Button x:Name="btn_datei" Content="Textdatei erstellen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Click="btn_datei_Click"/>
-                <Button x:Name="btn_Lesen" Content="Textdatei öffnen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Click="btn_Lesen_Click"/>
-                <Button x:Name="btn_Update" Content="Updaten" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Click="btn_Update_Click"/>
+                <Button x:Name="btn_add" Content="Hinzufügen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Click="btn_add_Click" Margin="0,0,-20,0"/>
+                <Button x:Name="btn_rmf" Content="Löschen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Click="btn_rmf_Click" Margin="0,0,-20,0"/>
+                <Button x:Name="btn_change" Content="Bearbeiten" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Click="btn_change_Click" Margin="0,0,-20,0"/>
+                <Button x:Name="btn_Update" Content="Updaten" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Click="btn_Update_Click" Margin="0,0,-20,0"/>
+                <Button x:Name="btn_datei" Content="Textdatei erstellen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Click="btn_datei_Click" Margin="0,0,-20,0"/>
+                <Button x:Name="btn_Lesen" Content="Textdatei öffnen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Click="btn_Lesen_Click" Margin="0,0,-20,0"/>
+
             </StackPanel>
         </DockPanel>
 
@@ -47,14 +48,19 @@
         <DockPanel>
             <StackPanel DockPanel.Dock="Left" HorizontalAlignment="Left" Orientation="Horizontal" Width="120" Margin="10,240,0,0" >
                 <ComboBox x:Name="cb_Zahlen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="43"/>
-                <ComboBox x:Name="cb_Klasse" HorizontalAlignment="Left" VerticalAlignment="Top" Width="72"/>
+                <ComboBox x:Name="cb_Klasse" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76"/>
             </StackPanel>
         </DockPanel>
         <DockPanel>
             <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" Width="866">
-                
-                <ListBox x:Name="lb_Informationen" HorizontalAlignment="Left" Height="415" Margin="135,78,0,0" VerticalAlignment="Top" Width="721"/>
+
+                <ListBox x:Name="lb_Informationen" HorizontalAlignment="Left" Height="415" Margin="162,78,0,0" VerticalAlignment="Top" Width="694"/>
             </StackPanel>
         </DockPanel>
+        <StackPanel HorizontalAlignment="Left" Width="130" Margin="10,449,0,0">
+            <TextBox x:Name="tb_search" Height="23" TextWrapping="Wrap" Text="Suche nach ID" Width="139" HorizontalAlignment="Left" Margin="0,0,-9,0"/>
+            <Button x:Name="btn_search" Content="Search" Width="139" HorizontalAlignment="Left" Click="btn_search_Click" Margin="0,0,-9,0"/>
+
+        </StackPanel>
     </Grid>
 </Window>
