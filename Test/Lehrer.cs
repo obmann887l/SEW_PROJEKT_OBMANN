@@ -6,13 +6,34 @@ using System.Threading.Tasks;
 
 namespace Test
 {
-    class Lehrer: Person
+    class Lehrer: Person , IComparable<Lehrer>
     {
-        public Lehrer(string v_name, string n_name, int id, int alter, int lid) : base(v_name, n_name, id, alter)
+        public int LID { get; set; }
+        public string Klasse { get; }
+        public string Lehrerkürzel { get; set; }
+
+        public Lehrer(int id , string Klasse, string v_name, string n_name, string lehrerkuerzel) : base(v_name, n_name, id )
         {
-            LID = lid;
+            LID = id;
+            Lehrerkürzel = lehrerkuerzel;
+            this.Klasse = Klasse;
         }
 
-        public int LID { get; set; }
+        public override string ToString()
+        {
+            return $"LID: {LID} | Klasse: {Klasse} | Vorname: {Vorname} | Nachname: {Nachname} | Lehrerkürzel: {Lehrerkürzel}";
+        }
+
+        public int CompareTo(Lehrer vorherigeLID)
+        {
+            if (LID < vorherigeLID.LID)
+                return -1;
+            else if (LID > vorherigeLID.LID)
+                return 1;
+            else
+                throw new Exception("LID kommt doppelt vor!");
+        }
+
+        
     }
 }

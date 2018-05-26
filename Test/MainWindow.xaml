@@ -16,14 +16,16 @@
         <TextBox x:Name="tb_Noten" HorizontalAlignment="Left" Height="23" Margin="10,129,0,0" TextWrapping="Wrap" Text="Notendurchschnitt" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="cb_Klasse" HorizontalAlignment="Left" Margin="58,159,0,0" VerticalAlignment="Top" Width="72"/>
         <ListBox x:Name="lb_Informationen" HorizontalAlignment="Left" Height="354" Margin="135,1,0,0" VerticalAlignment="Top" Width="721"/>
-        <Button x:Name="btn_add" Content="Hinzufügen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="10,341,0,0" Click="btn_add_Click"/>
-        <Button x:Name="btn_rmf" Content="Löschen" HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top" Width="120" Click="btn_rmf_Click"/>
-        <Button x:Name="btn_change" Content="Bearbeiten" HorizontalAlignment="Left" Margin="10,391,0,0" VerticalAlignment="Top" Width="120" Click="btn_change_Click"/>
-        <Button x:Name="btn_datei" Content="Textdatei erstellen" HorizontalAlignment="Left" Margin="10,460,0,0" VerticalAlignment="Top" Width="120" Click="btn_datei_Click"/>
-        <Button x:Name="btn_Lesen" Content="Textdatei öffnen" HorizontalAlignment="Left" Margin="10,485,0,0" VerticalAlignment="Top" Width="120" Click="btn_Lesen_Click"/>
-        <TextBox x:Name="tb_bearbeiten" HorizontalAlignment="Left" Height="20" Margin="135,391,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="721"/>
-        <Button x:Name="btn_Update" Content="Updaten" HorizontalAlignment="Left" Margin="10,416,0,0" VerticalAlignment="Top" Width="120" Click="btn_Update_Click"/>
+        <Button x:Name="btn_add" Content="Hinzufügen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="10,244,0,0" Click="btn_add_Click"/>
+        <Button x:Name="btn_rmf" Content="Löschen" HorizontalAlignment="Left" Margin="10,269,0,0" VerticalAlignment="Top" Width="120" Click="btn_rmf_Click"/>
+        <Button x:Name="btn_change" Content="Bearbeiten" HorizontalAlignment="Left" Margin="10,294,0,0" VerticalAlignment="Top" Width="120" Click="btn_change_Click"/>
+        <Button x:Name="btn_datei" Content="Textdatei erstellen" HorizontalAlignment="Left" Margin="10,363,0,0" VerticalAlignment="Top" Width="120" Click="btn_datei_Click"/>
+        <Button x:Name="btn_Lesen" Content="Textdatei öffnen" HorizontalAlignment="Left" Margin="10,388,0,0" VerticalAlignment="Top" Width="120" Click="btn_Lesen_Click"/>
+        <Button x:Name="btn_Update" Content="Updaten" HorizontalAlignment="Left" Margin="10,319,0,0" VerticalAlignment="Top" Width="120" Click="btn_Update_Click"/>
         <ComboBox x:Name="cb_Zahlen" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" Width="43"/>
+        <TextBox x:Name="tb_kuerzel" HorizontalAlignment="Left" Height="23" Margin="10,201,0,0" TextWrapping="Wrap" Text="Lehrerkürzel" VerticalAlignment="Top" Width="120"/>
+        <RadioButton x:Name="rb_Lehrer" Content="Lehrer öffnen" HorizontalAlignment="Left" Margin="10,413,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <RadioButton x:Name="rb_Schueler" Content="Schüler öffnen" HorizontalAlignment="Left" Margin="10,433,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

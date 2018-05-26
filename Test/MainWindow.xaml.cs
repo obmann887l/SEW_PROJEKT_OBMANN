@@ -21,19 +21,27 @@ namespace Test
     {
 
         ObservableCollection<string> KlassenCollection { get; set; }
+        ObservableCollection<Schueler> alle_schueler = new ObservableCollection<Schueler>();
+        ObservableCollection<Lehrer> alle_lehrer = new ObservableCollection<Lehrer>();
+
         public MainWindow()
         {
+            
             InitializeComponent();
+            
+            lb_Informationen.ItemsSource = alle_schueler;
+            
 
             for (int i = 0; i < 5; i++)
             {
                 cb_Zahlen.Items.Add(i+1);
             }
 
-
+            
             KlassenLesen();
            
             DataContext = this;
+
             
             
         }
@@ -41,20 +49,40 @@ namespace Test
 
         private void btn_add_Click(object sender, RoutedEventArgs e)
         {
+            
 
             try
             {
 
-                if (tb_ID.Text == "ID" && cb_Klasse.Text == "" && tb_Vorname.Text == "Vorname" && tb_Nachname.Text == "Nachname" && tb_Noten.Text == "Notendurchschnitt")
+                if (tb_ID.Text == "ID" || cb_Klasse.Text == "" || tb_Vorname.Text == "Vorname" || tb_Nachname.Text == "Nachname")
                     throw new Exception();
                 else
                 {
-                    lb_Informationen.Items.Add("ID: " + tb_ID.Text + " | " + " Klasse: " + cb_Zahlen.Text + cb_Klasse.Text + " | " + " Vorname: " + tb_Vorname.Text + " | " + " Nachname: " + tb_Nachname.Text + " | " + " Note: " + tb_Noten.Text);
+                    if (tb_kuerzel.Text == "Lehrerkürzel"|| tb_kuerzel.Text== "")
+                    {
+                        if (tb_Noten.Text == "Notendurchschnitt")
+                        {
+                            throw new Exception("Es ist kein Notendurchschnitt angegeben");
+                        }
+                        Schueler schueler = new Schueler(Convert.ToInt32(tb_ID.Text), cb_Zahlen.Text + cb_Klasse.Text, tb_Vorname.Text, tb_Nachname.Text, Convert.ToDouble(tb_Noten.Text));
+                        alle_schueler.Add(schueler);
+                        alle_schueler.ToList().Sort();
+                        lb_Informationen.ItemsSource = alle_schueler;
+                    }
+                       
+                    else
+                    {
+                        Lehrer lehrer = new Lehrer(Convert.ToInt32(tb_ID.Text), cb_Zahlen.Text + cb_Klasse.Text, tb_Vorname.Text, tb_Nachname.Text, tb_kuerzel.Text);
+                        alle_lehrer.Add(lehrer);
+                        lb_Informationen.ItemsSource = alle_lehrer;
+                        alle_lehrer.ToList().Sort();
+                    }
+                   
                 }
             }
             catch (Exception eing)
             {
-                MessageBox.Show(eing.Message, "Füllen Sie bitte Alle Felder aus", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Füllen Sie bitte Alle Felder aus."+ eing.Message, "Füllen Sie bitte Alle Felder aus", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -62,7 +90,17 @@ namespace Test
         {
             try
             {
-                lb_Informationen.Items.RemoveAt(lb_Informationen.Items.IndexOf(lb_Informationen.SelectedItem));
+                string typ = (((lb_Informationen.ItemsSource.ToString()).Split('[')[1]).Split('.')[1]).Replace("]", String.Empty);
+                if (typ == "Schueler")
+                {
+                    alle_schueler.RemoveAt(lb_Informationen.SelectedIndex);
+                    alle_schueler.ToList().Sort();
+                }
+                else
+                {
+                    alle_lehrer.RemoveAt(lb_Informationen.SelectedIndex);
+                    alle_lehrer.ToList().Sort();
+                }
             }
             catch (Exception loe)
             {
@@ -72,17 +110,28 @@ namespace Test
 
         private void btn_datei_Click(object sender, RoutedEventArgs e)
         {
-            var path = @"\Users\Lukas\Desktop\Schulverwaltung.txt";
+            string typ = (((lb_Informationen.ItemsSource.ToString()).Split('[')[1]).Split('.')[1]).Replace("]", String.Empty);
+            string path;
             if (lb_Informationen.Items.Count > 0)
             {
-                using (TextWriter tw = new StreamWriter(path))
+                string alles = String.Empty;
+                if (typ == "Schueler")
                 {
-                    foreach (string itemText in lb_Informationen.Items)
+                    path = "Schulverwaltung_Schueler.txt";
+                    foreach (var item in alle_schueler)
                     {
-                        tw.WriteLine(itemText);
+                        alles += item + Environment.NewLine;
                     }
                 }
-
+                else
+                {
+                    path = "Schulverwaltung_Lehrer.txt";
+                    foreach (var item in alle_lehrer)
+                    {
+                        alles += item + Environment.NewLine;
+                    }
+                }
+                File.WriteAllText(path, alles);
             }
         }
 
@@ -92,7 +141,7 @@ namespace Test
             {
 
                 KlassenCollection = new ObservableCollection<string>();
-                var path = @"\Users\Lukas\Desktop\Klasse.txt";
+                var path = "Klasse.txt";
                 using (StreamReader sr = new StreamReader(path))
                 {
                     string line = sr.ReadToEnd();
@@ -112,18 +161,37 @@ namespace Test
         }
         private void btn_Lesen_Click(object sender, RoutedEventArgs e)
         {
+            
             try
             {
-                var path = @"\Users\Lukas\Desktop\Schulverwaltung.txt";
-                using (StreamReader sr = new StreamReader(path))
+                string path;
+                string line;
+                if (rb_Schueler.IsChecked == true)
+                    {
+                    path = "Schulverwaltung_Schueler.txt";
+                    StreamReader file = new StreamReader(path);
+                    alle_schueler.Clear();
+                    while ((line = file.ReadLine()) != null && line != String.Empty)
+                    {
+                        alle_schueler.Add(new Schueler(Convert.ToInt32(line.Split('|')[0].Split(':')[1].Replace(" ", String.Empty)), line.Split('|')[1].Split(':')[1].Replace(" ", String.Empty), line.Split('|')[2].Split(':')[1].Replace(" ", String.Empty), line.Split('|')[3].Split(':')[1].Replace(" ", String.Empty), Convert.ToDouble(line.Split('|')[4].Split(':')[1].Replace(" ", String.Empty))));
+                    }
+                    lb_Informationen.ItemsSource = alle_schueler;
+                }
+                else if (rb_Lehrer.IsChecked == true)
                 {
-                    string line = sr.ReadToEnd();
-                    lb_Informationen.Items.Add(line);
+                    path = "Schulverwaltung_Lehrer.txt";
+                    StreamReader file = new StreamReader(path);
+                    while ((line = file.ReadLine()) != null && line != String.Empty)
+                    {
+                        alle_lehrer.Add(new Lehrer(Convert.ToInt32(line.Split('|')[0].Split(':')[1].Replace(" ", String.Empty)), line.Split('|')[1].Split(':')[1].Replace(" ", String.Empty), line.Split('|')[2].Split(':')[1].Replace(" ", String.Empty), line.Split('|')[3].Split(':')[1].Replace(" ", String.Empty), line.Split('|')[4].Split(':')[1].Replace(" ", String.Empty)));
+                    }
+                    lb_Informationen.ItemsSource = alle_lehrer;
+
                 }
             }
             catch (Exception fail)
             {
-                MessageBox.Show(fail.Message, "Datei konnte nicht gelesen werden", MessageBoxButton.OK, MessageBoxImage.Error,);
+                MessageBox.Show(fail.Message, "Datei konnte nicht gelesen werden", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -131,10 +199,35 @@ namespace Test
         {
             try
             {
-                string select = lb_Informationen.SelectedItem.ToString();
-                tb_bearbeiten.Text = select;
-                if (select == null)
-                    throw new Exception();
+                int index = lb_Informationen.SelectedIndex;
+                string typ = (((lb_Informationen.ItemsSource.ToString()).Split('[')[1]).Split('.')[1]).Replace("]", String.Empty);
+                if (typ == "Schueler")
+                {
+
+                    tb_Vorname.Text = alle_schueler[index].Vorname;
+                    tb_Nachname.Text = alle_schueler[index].Nachname;
+                    tb_ID.Text = alle_schueler[index].SID.ToString();
+                    tb_Noten.Text = alle_schueler[index].Noten.ToString();
+                    cb_Zahlen.SelectedItem = Convert.ToInt32(alle_schueler[index].Klasse.Substring(0, 1));
+                    cb_Klasse.SelectedItem = alle_schueler[index].Klasse.Substring(1);
+                }
+                else
+                {
+                    tb_Vorname.Text = alle_lehrer[index].Vorname;
+                    tb_Nachname.Text = alle_lehrer[index].Nachname;
+                    tb_ID.Text = alle_lehrer[index].LID.ToString();
+                    tb_kuerzel.Text = alle_lehrer[index].Lehrerkürzel;
+                    cb_Zahlen.SelectedItem = Convert.ToInt32(alle_lehrer[index].Klasse.Substring(0, 1));
+                    cb_Klasse.SelectedItem = alle_lehrer[index].Klasse.Substring(1);
+
+                }
+                
+
+
+
+                //if (select == null)
+                //  throw new Exception();
+
             }
             catch (Exception auswahl)
             {
@@ -148,10 +241,29 @@ namespace Test
 
             try
             {
-                lb_Informationen.Items.RemoveAt(lb_Informationen.Items.IndexOf(lb_Informationen.SelectedItem));
-                lb_Informationen.Items.Add(tb_bearbeiten.Text);
-                if (tb_bearbeiten.Text == "")
-                    throw new Exception();
+                //alle_schueler.RemoveAt(lb_Informationen.SelectedIndex);
+                string typ = (((lb_Informationen.ItemsSource.ToString()).Split('[')[1]).Split('.')[1]).Replace("]", String.Empty);
+                if (typ == "Schueler")
+                {
+
+
+                    Schueler schueler = new Schueler(Convert.ToInt32(tb_ID.Text), cb_Zahlen.Text + cb_Klasse.Text, tb_Vorname.Text, tb_Nachname.Text, Convert.ToDouble(tb_Noten.Text));
+                    int index = lb_Informationen.SelectedIndex;
+                    if (index < 0)
+                        throw new Exception();
+                    alle_schueler[index] = schueler;
+                    alle_schueler.ToList().Sort();
+                    
+                }
+                else
+                {
+                    Lehrer lehrer = new Lehrer(Convert.ToInt32(tb_ID.Text), cb_Zahlen.Text + cb_Klasse.Text, tb_Vorname.Text, tb_Nachname.Text, tb_kuerzel.Text);
+                    int index = lb_Informationen.SelectedIndex;
+                    if (index < 0)
+                        throw new Exception();
+                    alle_lehrer[index] = lehrer;
+                    alle_lehrer.ToList().Sort();
+                }
             }
             catch (Exception inhalt)
             {
