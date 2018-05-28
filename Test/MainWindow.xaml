@@ -15,7 +15,7 @@
                 <GradientStop Color="#FFE00808" Offset="0.707"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label HorizontalAlignment="Center" Content="Projekt von Lukas Obmann" FontSize="36" FontWeight="Bold" Foreground="White"/>
+        <Label HorizontalAlignment="Center" Content="Schulverwaltung" FontSize="36" FontWeight="Bold" Foreground="White"/>
         <DockPanel>
             <StackPanel DockPanel.Dock="Left" HorizontalAlignment="Left" Margin="10,409,0,65" Width="120">
                 <RadioButton x:Name="rb_Lehrer" Content="Lehrer   öffnen/suchen" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True" Margin="0,0,-20,0" Width="144"/>
